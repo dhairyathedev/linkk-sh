@@ -1,12 +1,21 @@
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-
 export default function Key({ accessKey, destination }) {
   const [password, setPassword] = useState("");
-  function validate(e) {
+  async function checkPassword(){
+      if(password){
+      const res = await axios.post("/api/utils/ispasswordvalid", {
+        password,
+        hash: accessKey
+      })
+      return res.data
+    }
+      return ""
+  }
+  async function validate(e) {
     e.preventDefault()
-    if (password === accessKey) {
+    if (await checkPassword()) {
       window.location.href = destination;
     } else {
       toast.error("Incorrect password");

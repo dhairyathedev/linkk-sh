@@ -51,6 +51,15 @@ export default function Index() {
     }
     loadLinks();
   }, [uid]);
+  async function encryptPassword(){
+    if(password){
+    const res = await axios.post("/api/utils/sealpassword", {
+      password
+    })
+    return res.data
+  }
+    return ""
+  }
   async function createUrl(e) {
     e.preventDefault();
     isLoading(true);
@@ -59,7 +68,7 @@ export default function Index() {
         userId: uid,
         key: key,
         url: url,
-        password
+        password: await encryptPassword()
       })
       .then((res) => {
         if (res.data && res.data.isUrl === undefined) {
