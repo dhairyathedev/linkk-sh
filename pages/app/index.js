@@ -186,7 +186,6 @@ export default function Index() {
           {/* LINKS MAPPING */}
           <div className="mt-4 max-w-screen-md mx-auto">
             {links.map((data) => (
-              <>
                 <div
                   key={data.id}
                   className="mt-4 w-full p-2 px-4 shadow-md font-secondary hover:shadow-lg border rounded-full"
@@ -299,7 +298,6 @@ export default function Index() {
                     </div>
                   </div>
                 </div>
-              </>
             ))}
           </div>
           {/* LINKS MAPPING END */}
@@ -459,23 +457,7 @@ export default function Index() {
                     {passwordVisible ? (
                       <svg
                         fill="none"
-                        shape-rendering="geometricPrecision"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        height="24"
-                        class="h-4 w-4 text-gray-400"
-                      >
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                      </svg>
-                    ) : (
-                      <svg
-                        fill="none"
-                        shape-rendering="geometricPrecision"
+                        shapeRendering="geometricPrecision"
                         stroke="currentColor"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -483,7 +465,23 @@ export default function Index() {
                         viewBox="0 0 24 24"
                         width="24"
                         height="24"
-                        class="h-4 w-4 text-gray-400"
+                        className="h-4 w-4 text-gray-400"
+                      >
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    ) : (
+                      <svg
+                        fill="none"
+                        shapeRendering="geometricPrecision"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                        className="h-4 w-4 text-gray-400"
                       >
                         <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"></path>
                         <path d="M1 1l22 22"></path>
@@ -498,7 +496,7 @@ export default function Index() {
                 }`}
                 disabled={loading}
               >
-                <p class="text-sm">{loading ? "Saving link..." : "Add link"}</p>
+                <p className="text-sm">{loading ? "Saving link..." : "Add link"}</p>
               </button>
             </div>
           </form>
