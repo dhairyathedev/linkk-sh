@@ -10,8 +10,8 @@ import "animate.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import Image from "next/image";
 import copy from "copy-to-clipboard";
-import { IconDotsVertical, IconTrash } from "@tabler/icons";
-
+import { IconDotsVertical, IconTrash, IconAlarm } from "@tabler/icons";
+import {timeAgo} from "../../lib/date"
 export default function Index() {
   const [loading, isLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(true);
@@ -276,6 +276,8 @@ export default function Index() {
                         </a>
                       </div>
                     </div>
+                    <div className="flex flex-row">
+                      <p className="text-sm text-gray-500 hidden sm:block">{timeAgo(data.created_at)}</p>
                     <div className="dropdown sm:dropdown-bottom dropdown-left">
                       <div tabIndex={0}>
                         <IconDotsVertical className="text-gray-500 cursor-pointer" />
@@ -284,11 +286,16 @@ export default function Index() {
                         tabIndex={0}
                         className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                       >
-                        <a className="flex flex-row text-red-400 sm:p-4 p-2 space-x-2 cursor-pointer hover:opacity-80 hover:bg-[#d1d5db] rounded-lg">
+                        <a className="flex flex-row text-gray-400 sm:p-4 p-2 space-x-2 cursor-pointer hover:opacity-80 hover:bg-[#d1d5db] rounded-lg sm:hidden" >
+                          <IconAlarm />
+                          {timeAgo(data.created_at)}
+                        </a>
+                        <a className="flex flex-row text-red-400 sm:p-4 p-2 space-x-2 cursor-pointer hover:opacity-80 hover:bg-[#d1d5db] rounded-lg" onClick={() => deleteLink(data.linkId)}>
                           <IconTrash />
-                          <a onClick={() => deleteLink(data.linkId)}>Delete Link</a>
+                          Delete Link
                         </a>
                       </ul>
+                    </div>
                     </div>
                   </div>
                 </div>
