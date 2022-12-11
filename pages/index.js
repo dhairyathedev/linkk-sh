@@ -5,7 +5,7 @@ import { getIp } from "../lib/api/ipFetch";
 import { getISODate } from "../lib/date";
 import Image from "next/image";
 import HomeNav from "../components/Nav/HomeNav";
-export default function Home() {
+export default function Home({ip}) {
   const [confirmSignUpLoad, setConfirmSignUpLoad] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [newUser, isNewUser] = useState(true);
@@ -52,8 +52,8 @@ export default function Home() {
         email: email,
         uid: uid,
         lastSignIn: lastSignIn,
-        lastSignInIp: await getIp(),
-        accountCreateIp: await getIp(),
+        lastSignInIp: ip,
+        accountCreateIp: ip,
       };
       if (newUser && confirmSignUpLoad) {
         const { data, error } = await supabase.from("users").insert(input);
@@ -72,7 +72,7 @@ export default function Home() {
   };
   return (
     <>
-      <HomeNav />
+      <HomeNav isNewUser={true} onClick={() => confirmSignUp()}/>
       <div className="mx-auto mt-20 mb-10 max-w-md px-2.5 text-center sm:max-w-lg sm:px-0 beam">
         <a
           href="https://supabase.com/"
@@ -139,4 +139,25 @@ export default function Home() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  let ip;
+
+  const { req } = context;
+
+  if (req.headers["x-forwarded-for"]) {
+    ip = req.headers["x-forwarded-for"].split(',')[0]
+  } else if (req.headers["x-real-ip"]) {
+    ip = req.connection.remoteAddress
+  } else {
+    ip = req.connection.remoteAddress
+  }
+
+  console.log(ip)
+  return {
+    props: {
+      ip,
+    },
+  }
 }
