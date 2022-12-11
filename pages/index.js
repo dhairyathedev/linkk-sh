@@ -12,6 +12,7 @@ export default function Home({ip}) {
   const [email, setEmail] = useState("");
   const [uid, setUid] = useState("");
   const [lastSignIn, setLastSignIn] = useState("");
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     async function loadSession() {
       const { data: dataUser } = await supabase.auth.getUser();
@@ -33,7 +34,7 @@ export default function Home({ip}) {
             console.log("User exisited");
             const { data: signinData, error } = await supabase
               .from("users")
-              .update({ lastSignIn: getISODate(), lastSignInIp: await getIp() })
+              .update({ lastSignIn: getISODate(), lastSignInIp: ip })
               .match({ uid: users[0].uid });
             console.log(`Signin data`, signinData);
           }
@@ -41,10 +42,11 @@ export default function Home({ip}) {
         if (users.length === 0) {
           setConfirmSignUpLoad(true);
         }
+        setLoading(false)
       }
     }
-    // loadSession();
-  }, [isAuthenticated]);
+    loadSession();
+  }, [isAuthenticated, ip]);
   const confirmSignUp = async () => {
     try {
       console.log(email);
@@ -60,7 +62,7 @@ export default function Home({ip}) {
         isNewUser(false);
         console.log(data);
         if (error) throw error;
-      } else if (!confirmSignUpLoad) {
+      } else if (confirmSignUpLoad) {
         alert("Data is loading! please wait");
       } else {
         alert("User exists");
@@ -72,7 +74,7 @@ export default function Home({ip}) {
   };
   return (
     <>
-      <HomeNav isNewUser={true} onClick={() => confirmSignUp()}/>
+      <HomeNav isNewUser={confirmSignUpLoad} onClick={() => confirmSignUp()} isLoading={loading}/>
       <div className="mx-auto mt-20 mb-10 max-w-md px-2.5 text-center sm:max-w-lg sm:px-0 beam">
         <a
           href="https://supabase.com/"
