@@ -5,6 +5,7 @@ import { getIp } from "../lib/api/ipFetch";
 import { getISODate } from "../lib/date";
 import Image from "next/image";
 import HomeNav from "../components/Nav/HomeNav";
+import { useRouter } from "next/router";
 export default function Home({ip}) {
   const [confirmSignUpLoad, setConfirmSignUpLoad] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,6 +14,7 @@ export default function Home({ip}) {
   const [uid, setUid] = useState("");
   const [lastSignIn, setLastSignIn] = useState("");
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
   useEffect(() => {
     async function loadSession() {
       const { data: dataUser } = await supabase.auth.getUser();
@@ -61,6 +63,7 @@ export default function Home({ip}) {
         const { data, error } = await supabase.from("users").insert(input);
         isNewUser(false);
         console.log(data);
+        router.push("/app")
         if (error) throw error;
       } else if (confirmSignUpLoad) {
         alert("Data is loading! please wait");
