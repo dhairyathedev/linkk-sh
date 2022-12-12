@@ -268,7 +268,7 @@ export default function Index() {
                         </div>
                         <a
                           href={`/${data.key}`}
-                          className="max-w-[200px] truncate text-sm font-secondary font-medium text-gray-700 md:max-w-md lg:max-w-xl xl:max-w-3xl"
+                          className="max-w-[200px] truncate text-sm font-secondary font-medium text-gray-700 sm:max-w-sm"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
