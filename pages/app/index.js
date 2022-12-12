@@ -8,6 +8,9 @@ import NoContent from "../../components/sections/NoContent";
 import Skeleton from "react-loading-skeleton";
 import "animate.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import Image from "next/image";
+import copy from "copy-to-clipboard";
+import { IconDotsVertical, IconTrash } from "@tabler/icons";
 
 export default function Index() {
   const [loading, isLoading] = useState(false);
@@ -51,14 +54,14 @@ export default function Index() {
     }
     loadLinks();
   }, [uid]);
-  async function encryptPassword(){
-    if(password){
-    const res = await axios.post("/api/utils/sealpassword", {
-      password
-    })
-    return res.data
-  }
-    return ""
+  async function encryptPassword() {
+    if (password) {
+      const res = await axios.post("/api/utils/sealpassword", {
+        password,
+      });
+      return res.data;
+    }
+    return "";
   }
   async function createUrl(e) {
     e.preventDefault();
@@ -68,7 +71,7 @@ export default function Index() {
         userId: uid,
         key: key,
         url: url,
-        password: await encryptPassword()
+        password: await encryptPassword(),
       })
       .then((res) => {
         if (res.data && res.data.isUrl === undefined) {
@@ -186,52 +189,107 @@ export default function Index() {
               <>
                 <div
                   key={data.id}
-                  className="mt-4 w-full p-4 shadow-md rounded-md font-secondary"
+                  className="mt-4 w-full p-2 px-4 shadow-md font-secondary hover:shadow-lg border rounded-full"
                 >
-                  <div className="flex flex-col space-y-1">
-                    <div className="flex flex-row space-x-2">
-                      <a
-                        href={process.env.NEXT_PUBLIC_PROD_URL + data.key}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="fw-24 truncate text-sm font-semibold text-blue-800 sm:w-full sm:text-base "
-                      >
-                        {"linkk.sh/" + data.key}
-                      </a>
-                      <div className="flex items-center space-x-1 rounded-md bg-gray-100 px-2 py-0.5 transition-all duration-75 hover:scale-105 active:scale-95">
-                        <svg
-                          fill="none"
-                          shapeRendering="geometricPrecision"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          viewBox="0 0 24 24"
-                          width="14"
-                          height="14"
-                          className="h-4 w-4"
+                  <div className="flex justify-between items-center">
+                    <div className="flex flex-row space-x-2 items-center">
+                      <div>
+                        <Image
+                          src={`https://www.google.com/s2/favicons?domain=${
+                            data.url
+                          }&sz=${64}`}
+                          width={48}
+                          height={48}
+                          alt=""
+                          className="rounded-full"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex flex-row space-x-2 items-center">
+                          <a
+                            href={`/${data.key}`}
+                            className="font-secondary font-semibold text-blue-600"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            linkk.sh/{data.key}
+                          </a>
+                          <button
+                            className="group rounded-full bg-gray-100 p-1.5 transition-all duration-75 hover:scale-105 hover:bg-blue-100 active:scale-95"
+                            onClick={() => {
+                              copy(
+                                `${process.env.NEXT_PUBLIC_PROD_URL}${data.key}`
+                              );
+                              toast.success("Link copied!");
+                            }}
+                          >
+                            <span className="sr-only">Copy</span>
+                            <svg
+                              fill="none"
+                              shapeRendering="geometricPrecision"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
+                              viewBox="0 0 24 24"
+                              width="14"
+                              height="14"
+                              class="text-gray-700 transition-all group-hover:text-blue-800"
+                            >
+                              <path d="M8 17.929H6c-1.105 0-2-.912-2-2.036V5.036C4 3.91 4.895 3 6 3h8c1.105 0 2 .911 2 2.036v1.866m-6 .17h8c1.105 0 2 .91 2 2.035v10.857C20 21.09 19.105 22 18 22h-8c-1.105 0-2-.911-2-2.036V9.107c0-1.124.895-2.036 2-2.036z"></path>
+                            </svg>
+                          </button>
+                          <div>
+                            <div className="flex items-center space-x-1 rounded-md bg-gray-100 px-2 py-0.5 transition-all duration-75 hover:scale-105 active:scale-95">
+                              <svg
+                                fill="none"
+                                shapeRendering="geometricPrecision"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                viewBox="0 0 24 24"
+                                width="14"
+                                height="14"
+                                className="h-4 w-4"
+                              >
+                                <path d="M12 20V10"></path>
+                                <path d="M18 20V4"></path>
+                                <path d="M6 20v-4"></path>
+                              </svg>
+                              <p class="whitespace-nowrap text-sm text-gray-500">
+                                {data.clicks}
+                                <span class="ml-1 hidden sm:inline-block">
+                                  clicks
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <a
+                          href={`/${data.key}`}
+                          className="max-w-[200px] truncate text-sm font-secondary font-medium text-gray-700 md:max-w-md lg:max-w-xl xl:max-w-3xl"
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
-                          <path d="M12 20V10"></path>
-                          <path d="M18 20V4"></path>
-                          <path d="M6 20v-4"></path>
-                        </svg>
-                        <p className="whitespace-nowrap text-sm text-gray-500">
-                          {data.clicks}
-                          <span className="ml-1 hidden sm:inline-block">
-                            clicks
-                          </span>
-                        </p>
+                          {data.url}
+                        </a>
                       </div>
                     </div>
-                    <h4 className="max-w-[200px] truncate text-sm font-medium text-gray-700 md:max-w-md lg:max-w-2xl xl:max-w-3xl">
-                      {data.url}
-                    </h4>
-                    <a
-                      className="text-xs text-gray-800 flex justify-end hover:text-red-500 cursor-pointer "
-                      onClick={() => deleteLink(data.linkId)}
-                    >
-                      Delete link
-                    </a>
+                    <div className="dropdown sm:dropdown-bottom dropdown-left">
+                      <div tabIndex={0}>
+                        <IconDotsVertical className="text-gray-500 cursor-pointer" />
+                      </div>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                      >
+                        <a className="flex flex-row text-red-400 sm:p-4 p-2 space-x-2 cursor-pointer hover:opacity-80 hover:bg-[#d1d5db] rounded-lg">
+                          <IconTrash />
+                          <a onClick={() => deleteLink(data.linkId)}>Delete Link</a>
+                        </a>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </>
@@ -370,7 +428,10 @@ export default function Index() {
               </div>
               <div className="mt-4">
                 <h3 className="font-secondary text-gray-700 font-semibold mb-2">
-                  &nbsp;Password Protection <span className="text-sm font-light text-gray-500">(optional)</span>
+                  &nbsp;Password Protection{" "}
+                  <span className="text-sm font-light text-gray-500">
+                    (optional)
+                  </span>
                 </h3>
                 <div className="relative mt-3 rounded-md shadow-sm opacity-100">
                   <input
