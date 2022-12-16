@@ -6,6 +6,7 @@ import { getISODate } from "../lib/date";
 import Image from "next/image";
 import HomeNav from "../components/Nav/HomeNav";
 import { useRouter } from "next/router";
+import Background from "../components/Background";
 export default function Home({ip}) {
   const [confirmSignUpLoad, setConfirmSignUpLoad] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -77,8 +78,10 @@ export default function Home({ip}) {
   };
   return (
     <>
+    <div className="bg-gray-50">
       <HomeNav isNewUser={confirmSignUpLoad} onClick={() => confirmSignUp()} isLoading={loading}/>
-      <div className="mx-auto mt-20 mb-10 max-w-md px-2.5 text-center sm:max-w-lg sm:px-0 beam">
+      <Background />
+      <div className="z-10 mx-auto mt-20 mb-10 max-w-md px-2.5 text-center sm:max-w-lg sm:px-0 brightness-100">
         <a
           href="https://supabase.com/"
           target="_blank"
@@ -141,6 +144,7 @@ export default function Home({ip}) {
             <p className="text-sm">Star on GitHub</p>
           </a>
         </div>
+      </div>
       </div>
     </>
   );
