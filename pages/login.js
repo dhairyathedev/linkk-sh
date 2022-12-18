@@ -1,17 +1,18 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 export default function Home() {
   const [email, setEmail] = useState("");
+  const router = useRouter()
   useEffect(() => {
     async function loadSession() {
-      const { data } = await supabase.auth.getUser();
-      if (data) {
-        // setEmail(data.user.email)
-        console.log(data);
+      const {data: autheticated} = await supabase.auth.getSession()
+      if(autheticated.session !== null){
+        router.push("/app")
       }
     }
     loadSession();
-  }, []);
+  }, [router]);
   const signInWithEmail = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithOtp({
