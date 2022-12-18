@@ -46,8 +46,8 @@ export default function Home({ip}) {
           setConfirmSignUpLoad(true);
         }
         setLoading(false)
-      }
     }
+  }
     loadSession();
   }, [isAuthenticated, ip]);
   const confirmSignUp = async () => {
@@ -115,8 +115,7 @@ export default function Home({ip}) {
           </span>
         </h1>
         <h2 className="mt-5 text-lg text-gray-600 sm:text-xl">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Occaecat
-          reprehenderit consectetur deserunt.
+          <span className="font-medium">linkk.sh</span> is an opensource link shortener and management tool for create, shorten and track.
         </h2>
         <div className="mx-auto mt-10 flex max-w-fit space-x-4">
           <Link
