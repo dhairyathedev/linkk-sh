@@ -162,16 +162,10 @@ export default function Index() {
               </div>
               <div className="flex flex-row space-x-4 items-center">
                 <Link
-                  href="/app/settings"
+                  href="/app/signout"
                   className="font-primary font-light text-xl"
                 >
-                  settings
-                </Link>
-                <Link
-                  href="/app/profile"
-                  className="font-primary font-light text-xl sm:block hidden"
-                >
-                  profile
+                  signout
                 </Link>
               </div>
             </div>
