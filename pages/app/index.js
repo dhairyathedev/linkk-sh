@@ -426,7 +426,7 @@ export default function Index() {
                   placeholder="twitter-campaign"
                   value={key}
                   onChange={(e) => setKey(e.target.value)}
-                  pattern="[^' ']+"
+                  pattern="[a-zA-Z0-9\-]+"
                   aria-invalid="true"
                   aria-describedby="key-error"
                 />
