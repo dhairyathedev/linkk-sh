@@ -12,6 +12,7 @@ import Image from "next/image";
 import copy from "copy-to-clipboard";
 import { IconDotsVertical, IconTrash, IconAlarm } from "@tabler/icons";
 import {timeAgo} from "../../lib/date"
+import { useRouter } from "next/router";
 export default function Index() {
   const [loading, isLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(true);
@@ -25,18 +26,24 @@ export default function Index() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [keyLoading, setKeyLoading] = useState(false);
+  const router = useRouter()
   useEffect(() => {
     async function loadSession() {
-      const { data: user } = await supabase.auth.getUser();
-      if (user) {
-        const res = user.user;
+      const {data: autheticated} = await supabase.auth.getSession()
+      if(autheticated.session !== null){
+      const { data: users } = await supabase.auth.getUser();
+      if (users) {
+        const res = users.user;
         setUid(res.id);
         setEmail(res.email);
         setUserLoading(false);
+      }}
+      else{
+        router.push("/login")
       }
     }
     loadSession();
-  }, []);
+  }, [router]);
   useEffect(() => {
     async function loadLinks() {
       if (uid) {
