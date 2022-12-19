@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Background from "../components/Background";
+import Meta from "../components/Meta";
 import { supabase } from "../lib/supabase";
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -46,6 +47,7 @@ export default function Home() {
   };
   return (
     <>
+    <Meta />
     <Background />  
       <div className="z-10 mx-auto max-w-md px-2.5 sm:max-w-lg sm:px-0 brightness-100 w-full min-h-screen">
         <div className="flex justify-center items-center min-h-screen max-w-screen-sm mx-auto">
