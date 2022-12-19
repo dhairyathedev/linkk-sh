@@ -2,7 +2,7 @@
   <h1>Linkk.sh</h1>
 </center>
 
-![Banner](https://user-images.githubusercontent.com/65452005/208378112-60d07375-a748-47a1-af9c-0e4f37053de4.png)
+![Banner](https://user-images.githubusercontent.com/65452005/208378819-16d69114-1f0b-4b25-b51b-fb7baecfdbba.png)
 
 
 linkk.sh is an open-source link shortener and management tool for creating, shortening and tracking.
