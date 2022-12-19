@@ -37,6 +37,11 @@ export default function HomeVav({isNewUser, onClick, isLoading}) {
           <Link
             href="/app"
             className="font-secondary rounded-full border border-black bg-black py-1.5 px-5 text-sm text-white transition-all hover:bg-white hover:text-black"
+            onClick={(e) => {
+              if(isNewUser){
+                e.preventDefault()
+              }
+            }}
           >
              {isAuthenticated && !isLoading || !loading ? "Dashboard" :  "SignIn"}
           </Link>

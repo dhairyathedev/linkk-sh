@@ -8,6 +8,7 @@ import HomeNav from "../components/Nav/HomeNav";
 import { useRouter } from "next/router";
 import Background from "../components/Background";
 import Meta from "../components/Meta";
+import { checkUserExists } from "../lib/authentication/users";
 export default function Home({ip}) {
   const [confirmSignUpLoad, setConfirmSignUpLoad] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,13 +27,8 @@ export default function Home({ip}) {
         setLastSignIn(dataUser.user.last_sign_in_at);
         dataUser.user.id ? setIsAuthenticated(true) : setIsAuthenticated(false);
         console.log(`Signed in as ${dataUser.user.email}`);
-
-        const { data: users, error } = await supabase
-          .from("users")
-          .select("uid")
-          .eq("uid", dataUser.user.id);
-        console.log(users);
-        if (users) {
+        const users = await checkUserExists(dataUser.user.id);
+        if (users.length > 0) {
           if (isAuthenticated && users[0].uid) {
             isNewUser(false);
             console.log("User exisited");
@@ -50,7 +46,7 @@ export default function Home({ip}) {
     }
   }
     loadSession();
-  }, [isAuthenticated, ip]);
+  }, [isAuthenticated, ip, confirmSignUpLoad]);
   const confirmSignUp = async () => {
     try {
       console.log(email);
