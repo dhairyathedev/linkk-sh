@@ -13,6 +13,7 @@ import copy from "copy-to-clipboard";
 import { IconDotsVertical, IconTrash, IconAlarm } from "@tabler/icons";
 import {timeAgo} from "../../lib/date"
 import { useRouter } from "next/router";
+import FormatInt from "../../lib/validations/format-num";
 export default function Index() {
   const [loading, isLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(true);
@@ -258,7 +259,7 @@ export default function Index() {
                                 <path d="M6 20v-4"></path>
                               </svg>
                               <p className="whitespace-nowrap text-sm text-gray-500">
-                                {data.clicks}
+                                {FormatInt(data.clicks)}
                                 <span className="ml-1 hidden sm:inline-block">
                                   clicks
                                 </span>
