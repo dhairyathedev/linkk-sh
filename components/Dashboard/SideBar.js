@@ -5,7 +5,7 @@ import DashNav from "../Nav/DashNav";
 export default function Sidebar() {
   return (
     <>
-      <div className="min-h-screen p-4 lg:w-1/5  w-20 border-r border-gray-200 shadow-md">
+      <div className="sticky min-h-screen p-4 lg:w-1/5  w-20 border-r border-gray-200 shadow-md">
         <DashNav />
         <div className="flex sm:flex-col flex-row justify-center items-center lg:block">
           <button className="w-full text-white bg-purple-600 py-2 rounded-md shadow-md hover:bg-purple-800 transition mb-3 lg:block hidden">
