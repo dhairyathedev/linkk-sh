@@ -1,4 +1,5 @@
 import { IconPlus } from "@tabler/icons";
+import Link from "next/link";
 import React from "react";
 import DashNav from "../Nav/DashNav";
 
@@ -8,16 +9,18 @@ export default function Sidebar() {
       <div className="sticky min-h-screen p-4 lg:w-1/5  w-20 border-r border-gray-200 shadow-md">
         <DashNav />
         <div className="flex sm:flex-col flex-row justify-center items-center lg:block">
+          <Link href="/app/create">
           <button className="w-full text-white bg-purple-600 py-2 rounded-md shadow-md hover:bg-purple-800 transition mb-3 lg:block hidden">
             Create New
           </button>
           <button className="text-white bg-purple-600 rounded-md shadow-md hover:bg-purple-800 transition mb-3 p-3 lg:hidden block">
             <IconPlus />
           </button>
+          </Link>
           <hr />
         </div>
         <div className="flex flex-col items-center lg:justify-center justify-start space-y-4 mt-4">
-          <a className="w-full inline-flex space-x-2 items-center cursor-pointer hover:bg-purple-50 px-4 py-2 rounded-md">
+          <Link className="w-full inline-flex space-x-2 items-center cursor-pointer hover:bg-purple-50 px-4 py-2 rounded-md" href="/app/dashboard">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -35,7 +38,7 @@ export default function Sidebar() {
             <span className="font-semibold text-lg lg:block hidden">
               Dashboard
             </span>
-          </a>
+          </Link>
           <a className="w-full inline-flex space-x-2 items-center cursor-pointer hover:bg-purple-50 px-4 py-2 rounded-md">
             <svg
               xmlns="http://www.w3.org/2000/svg"

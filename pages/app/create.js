@@ -57,12 +57,12 @@ export default function create() {
             </h1>
             <div className="mt-4">
               <h1 className="font-semibold">
-                    Custom back-half
+                Custom back-half
                 <span className="font-light"> (optional)</span>
               </h1>
               <input
-                  type="text"
-                  className="mt-1
+                type="text"
+                className="mt-1
                   block
                   w-full
                   rounded-sm
@@ -72,11 +72,11 @@ export default function create() {
                   placeholder:text-gray-400
                   placeholder:font-light
                   text-sm"
-                  placeholder="twittercampaign"
-                  pattern="[a-zA-Z0-9\-]+"
-                  aria-invalid="true"
-                  aria-describedby="key-error"
-                />
+                placeholder="twittercampaign"
+                pattern="[a-zA-Z0-9\-]+"
+                aria-invalid="true"
+                aria-describedby="key-error"
+              />
             </div>
             <div className="mt-4">
               <h1 className="font-semibold">
@@ -99,9 +99,11 @@ export default function create() {
             "
               />
             </div>
+            <button className="w-full text-white bg-purple-600 py-2 rounded-md shadow-md hover:bg-purple-800 transition mb-3 lg:block hidden mt-6">
+              Create
+            </button>
           </form>
-          <div>
-          </div>
+          <div></div>
         </div>
       </Dashboard>
     </div>
