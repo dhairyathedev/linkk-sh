@@ -39,7 +39,7 @@ export default function Sidebar() {
               Dashboard
             </span>
           </Link>
-          <a className="w-full inline-flex space-x-2 items-center cursor-pointer hover:bg-purple-50 px-4 py-2 rounded-md">
+          <Link className="w-full inline-flex space-x-2 items-center cursor-pointer hover:bg-purple-50 px-4 py-2 rounded-md" href="/app/links">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -56,7 +56,7 @@ export default function Sidebar() {
             </svg>
 
             <span className="font-semibold text-lg lg:block hidden">Links</span>
-          </a>
+          </Link>
         </div>
         <div className="absolute bottom-3">
           <a className="w-full inline-flex space-x-2 items-center cursor-pointer hover:bg-purple-50 px-4 py-2 rounded-md">
