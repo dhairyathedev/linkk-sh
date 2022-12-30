@@ -1,12 +1,15 @@
 import { IconAlarm, IconDotsVertical, IconTrash } from '@tabler/icons';
+import copy from 'copy-to-clipboard';
 import Image from 'next/image';
 import React from 'react'
+import { toast, Toaster } from 'react-hot-toast';
 import { timeAgo } from '../../lib/date';
 import FormatInt from '../../lib/validations/format-num';
 
 export default function LinksCard({links, deleteLink}) {
   return (
     <div className="mt-4 max-w-screen-md mx-auto">
+      <Toaster />
             {links.map((data) => (
                 <div
                   key={data.id}
@@ -33,7 +36,12 @@ export default function LinksCard({links, deleteLink}) {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
+                            <span className={`${!data.title ? "hidden" : "block"} max-w-[150px] truncate font-secondary sm:max-w-sm`}>
+                              {data.title}
+                            </span>
+                            <span className={`${data.title ? "hidden" : "block"} max-w-[150px] truncate font-secondary sm:max-w-sm`}>
                             linkk.sh/{data.key}
+                            </span>
                           </a>
                           <button
                             className="group rounded-full bg-gray-100 p-1.5 transition-all duration-75 hover:scale-105 hover:bg-blue-100 active:scale-95"
