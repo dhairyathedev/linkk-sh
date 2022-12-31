@@ -507,3 +507,14 @@ export default function Index() {
     </>
   );
 }
+
+
+
+export async function getServerSideProps(){
+  return {
+    redirect: {
+      permanent: true,
+      destination: "/app/dashboard",
+    },
+  };
+}

@@ -29,6 +29,7 @@
     "react-hot-toast": "^2.4.0",
     "react-loading-skeleton": "^3.1.0",
     "react-qrcode-logo": "^2.8.0",
+    "react-wrap-balancer": "^0.2.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

@@ -2200,6 +2200,11 @@ react-qrcode-logo@^2.8.0:
     lodash.isequal "^4.5.0"
     qrcode-generator "^1.4.1"
 
+react-wrap-balancer@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/react-wrap-balancer/-/react-wrap-balancer-0.2.4.tgz#1f112df575958400f253186aa9a7fd5ee9528ed1"
+  integrity sha512-MVL9/Tw1X72t0i5Y/2j3YmSx1vkJJ22b5Vb+vZ/IOEdq7r9JPNzTfnfkB8wrl98Jwx+F6VCwJXmU7a1lT5PtCA==
+
 react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
