@@ -1,9 +1,15 @@
 import { IconPlus } from "@tabler/icons";
 import Link from "next/link";
+import { Router, useRouter } from "next/router";
 import React from "react";
 import DashNav from "../Nav/DashNav";
 
 export default function Sidebar() {
+  const router = useRouter()
+  function confirmSignout(){
+    const dialog = confirm("Are your sure to signout of the account?")
+    dialog ? router.push("/app/signout") : ""
+  }
   return (
     <>
       <div className="sticky min-h-screen p-4 lg:w-1/5  w-20 border-r border-gray-200 shadow-md">
@@ -74,7 +80,7 @@ export default function Sidebar() {
                 d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
               />
             </svg>
-            <span className="font-semibold lg:block hidden">Signout</span>
+            <button className="font-semibold lg:block hidden" onClick={confirmSignout}>Signout</button>
           </a>
         </div>
       </div>
