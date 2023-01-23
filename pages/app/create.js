@@ -5,6 +5,8 @@ import { toast, Toaster } from "react-hot-toast";
 import Dashboard from "../../layout/Dashboard";
 import { supabase } from "../../lib/supabase";
 import { generateKey } from "../../lib/api/links";
+import { DateRangePicker } from "@tremor/react";
+import moment from "moment-timezone";
 export default function Create() {
   const [loading, isLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(true);
@@ -17,6 +19,7 @@ export default function Create() {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [title, setTitle] = useState("");
+  const [scheduleDate, setScheduleDate] = useState("");
   const router = useRouter();
   useEffect(() => {
     async function loadSession() {
@@ -45,7 +48,7 @@ export default function Create() {
     return "";
   }
   async function createUrl(e) {
-    e.preventDefault();
+    e.preventDefault()
     isLoading(true);
     await axios
       .post("/api/links/create", {
@@ -54,12 +57,13 @@ export default function Create() {
         url: url,
         password: await encryptPassword(),
         title: title,
+        expiresAt: moment.tz(scheduleDate[0], "UTC").format(),
       })
       .then((res) => {
         if (res.data && res.data.isUrl === undefined) {
           console.log(res);
           toast.success("URL Created");
-          router.push("/app/links")
+          router.push("/app/links");
           isLoading(false);
           e.target.reset();
         } else if (!res.data.isUrl) {
@@ -70,12 +74,12 @@ export default function Create() {
           e.target.reset();
         }
         isLoading(false);
-      })
-      // .catch((err) => {
-      //   if (err.response.status === 429) {
-      //     toast.error("Too many requests, please try again in few minutes");
-      //   }
-      // });
+      });
+    // .catch((err) => {
+    //   if (err.response.status === 429) {
+    //     toast.error("Too many requests, please try again in few minutes");
+    //   }
+    // });
   }
   return (
     <div>
@@ -182,10 +186,18 @@ export default function Create() {
                 value={password}
               />
             </div>
-            <button className={`w-full text-white bg-purple-600 py-2 rounded-md shadow-md hover:bg-purple-800 transition mb-3 mt-6 ${
-                  loading ? "opacity-80" : "opacity-100"
-                }`} disabled={loading}>
-              
+            <div className="mt-4">
+              <h1 className="font-semibold mb-2">
+                Schedule Delete <span className="font-light">(optional)</span>
+              </h1>
+              <DateRangePicker enableDropdown={false} value={scheduleDate} onValueChange={setScheduleDate} />
+            </div>
+            <button
+              className={`w-full text-white bg-purple-600 py-2 rounded-md shadow-md hover:bg-purple-800 transition mb-3 mt-6 ${
+                loading ? "opacity-80" : "opacity-100"
+              }`}
+              disabled={loading}
+            >
               Create
             </button>
           </form>
