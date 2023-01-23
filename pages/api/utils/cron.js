@@ -38,7 +38,7 @@ async function handler(req, res) {
   }
 }
 
-export default verifySignature(handler);
+export default verifySignature(async() => await handler());
 
 export const config = {
   api: {
