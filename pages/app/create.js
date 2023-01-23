@@ -7,7 +7,7 @@ import { supabase } from "../../lib/supabase";
 import { generateKey } from "../../lib/api/links";
 import { DateRangePicker } from "@tremor/react";
 import moment from "moment-timezone";
-import { getUTCDate } from "../../lib/date";
+import { getDateTimeLocal, getUTCDate } from "../../lib/date";
 export default function Create() {
   const [loading, isLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(true);
@@ -58,7 +58,7 @@ export default function Create() {
         url: url,
         password: await encryptPassword(),
         title: title,
-        expiresAt: getUTCDate(),
+        expiresAt: scheduleDate,
       })
       .then((res) => {
         if (res.data && res.data.isUrl === undefined) {
@@ -75,12 +75,12 @@ export default function Create() {
           e.target.reset();
         }
         isLoading(false);
-      });
-    // .catch((err) => {
-    //   if (err.response.status === 429) {
-    //     toast.error("Too many requests, please try again in few minutes");
-    //   }
-    // });
+      })
+    .catch((err) => {
+      if (err.response.status === 429) {
+        toast.error("Too many requests, please try again in few minutes");
+      }
+    });
   }
   return (
     <div>
@@ -191,7 +191,25 @@ export default function Create() {
               <h1 className="font-semibold mb-2">
                 Schedule Delete <span className="font-light">(optional)</span>
               </h1>
-              <DateRangePicker enableDropdown={false} value={scheduleDate} onValueChange={setScheduleDate} />
+              <input
+            type="date"
+            id="expiresAt"
+            name="expiresAt"
+            min={getDateTimeLocal()}
+            onChange={(e) => {
+              setScheduleDate(new Date(e.target.value))
+            }}
+            className="mt-1
+            block
+            w-full
+            rounded-sm
+            border-gray-300
+            shadow-sm
+            focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
+            placeholder:text-gray-400
+            placeholder:font-light
+            text-sm"
+          />
             </div>
             <button
               className={`w-full text-white bg-purple-600 py-2 rounded-md shadow-md hover:bg-purple-800 transition mb-3 mt-6 ${
