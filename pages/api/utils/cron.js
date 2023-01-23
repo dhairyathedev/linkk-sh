@@ -6,7 +6,7 @@ import { checkDateInSupabase, getISODate } from "../../../lib/date";
 import { verifySignature } from "@upstash/qstash/nextjs";
 
 async function handler(req, res) {
-  if (req.method === "GET") {
+  try{
     const response = await fetchAllLinksExpireDate();
     let match = false;
     let expiryDate;
@@ -31,9 +31,10 @@ async function handler(req, res) {
       date: new Date().toUTCString(),
       test: checkDateInSupabase("2023-01-21T18:30:00+00:00"),
     });
-  } else {
-    res.setHeader("Allow", ["GET"]);
-    return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+  }catch(err){
+    res.status(500).send(err)
+  }finally{
+    res.end()
   }
 }
 
