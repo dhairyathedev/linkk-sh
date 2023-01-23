@@ -26,11 +26,11 @@ async function handler(req, res) {
     // if (response) {
     //   await scheduleLinkDelete();
     // }
-    res.status(200).end();
+    res.status(200).json({success: true});
   }catch(err){
-    res.status(500).send(err)
+    res.status(500).json(err)
   }finally{
-    res.end()
+    res.status(200).json({success: null})
   }
 }
 
