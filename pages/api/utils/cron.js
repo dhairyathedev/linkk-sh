@@ -26,11 +26,7 @@ async function handler(req, res) {
     // if (response) {
     //   await scheduleLinkDelete();
     // }
-    return res.status(200).json({
-      response,
-      date: new Date().toUTCString(),
-      test: checkDateInSupabase("2023-01-21T18:30:00+00:00"),
-    });
+    res.status(200).end();
   }catch(err){
     res.status(500).send(err)
   }finally{
