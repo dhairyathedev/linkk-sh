@@ -58,7 +58,7 @@ export default function Create() {
         url: url,
         password: await encryptPassword(),
         title: title,
-        expiresAt: scheduleDate ? scheduleDate : "",
+        expiresAt: scheduleDate ? scheduleDate : null,
       })
       .then((res) => {
         if (res.data && res.data.isUrl === undefined) {
