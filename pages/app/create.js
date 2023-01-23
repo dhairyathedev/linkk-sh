@@ -7,6 +7,7 @@ import { supabase } from "../../lib/supabase";
 import { generateKey } from "../../lib/api/links";
 import { DateRangePicker } from "@tremor/react";
 import moment from "moment-timezone";
+import { getUTCDate } from "../../lib/date";
 export default function Create() {
   const [loading, isLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(true);
@@ -57,7 +58,7 @@ export default function Create() {
         url: url,
         password: await encryptPassword(),
         title: title,
-        expiresAt: moment.tz(scheduleDate[0], "UTC").format(),
+        expiresAt: getUTCDate(),
       })
       .then((res) => {
         if (res.data && res.data.isUrl === undefined) {
