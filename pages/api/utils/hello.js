@@ -1,9 +1,11 @@
 import { verifySignature } from "@upstash/qstash/nextjs";
+import { checkDateInSupabase } from "../../../lib/date";
 
 async function handler(req, res) {
   console.log("If this is printed, the signature has already been verified");
   const date = new Date().toLocaleDateString();
-  console.log(date);
+    const checkThis = checkDateInSupabase("2023-01-22 18:30:00+00")
+    console.log("Date Status: ", checkThis)
   // do stuff
   res.status(200).end();
 }
