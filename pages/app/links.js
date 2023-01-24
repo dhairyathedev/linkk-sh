@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react'
-import { toast, Toaster } from 'react-hot-toast';
-import LinksCard from '../../components/Dashboard/LinksCard';
-import Dashboard from '../../layout/Dashboard'
-import Links from '../../layout/Links'
-import { supabase } from '../../lib/supabase';
+import axios from "axios";
+import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
+import { toast, Toaster } from "react-hot-toast";
+import LinksCard from "../../components/Dashboard/LinksCard";
+import Dashboard from "../../layout/Dashboard";
+import Links from "../../layout/Links";
+import { supabase } from "../../lib/supabase";
 
 export default function LinksPage() {
   const [loading, isLoading] = useState(false);
@@ -20,20 +20,20 @@ export default function LinksPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [keyLoading, setKeyLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
     async function loadSession() {
-      const {data: autheticated} = await supabase.auth.getSession()
-      if(autheticated.session !== null){
-      const { data: users } = await supabase.auth.getUser();
-      if (users) {
-        const res = users.user;
-        setUid(res.id);
-        setEmail(res.email);
-        setUserLoading(false);
-      }}
-      else{
-        router.push("/login")
+      const { data: autheticated } = await supabase.auth.getSession();
+      if (autheticated.session !== null) {
+        const { data: users } = await supabase.auth.getUser();
+        if (users) {
+          const res = users.user;
+          setUid(res.id);
+          setEmail(res.email);
+          setUserLoading(false);
+        }
+      } else {
+        router.push("/login");
       }
     }
     loadSession();
@@ -64,7 +64,7 @@ export default function LinksPage() {
     }
     return "";
   }
-  
+
   async function deleteLink(id) {
     await axios
       .post("/api/links/delete", {
@@ -79,12 +79,32 @@ export default function LinksPage() {
   }
   return (
     <>
-    <Toaster />
-        <Dashboard>
-            <Links>
-              <LinksCard links={links} deleteLink={deleteLink}/>
-            </Links>
-        </Dashboard>
+      <Toaster />
+      <Dashboard>
+        <Links>
+          {links.length > 0 ? (
+            <LinksCard links={links} deleteLink={deleteLink} />
+          ) : (
+            <div className="flex justify-center items-center mt-48">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="animate-spin"
+                width="36"
+                height="36"
+                viewBox="0 0 24 24"
+                stroke-width="1"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 3a9 9 0 1 0 9 9"></path>
+              </svg>
+            </div>
+          )}
+        </Links>
+      </Dashboard>
     </>
-  )
+  );
 }
