@@ -5,6 +5,7 @@ import React from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { timeAgo } from "../../lib/date";
 import FormatInt from "../../lib/validations/format-num";
+import BlurImage from "../shared/blur-img";
 
 export default function LinksCard({ links, deleteLink }) {
   return (
@@ -18,7 +19,7 @@ export default function LinksCard({ links, deleteLink }) {
           <div className="flex justify-between items-center">
             <div className="flex flex-row space-x-2 items-center">
               <div>
-                <Image
+                {/* <Image
                   src={`https://www.google.com/s2/favicons?domain=${
                     data.url
                   }&sz=${64}`}
@@ -26,7 +27,14 @@ export default function LinksCard({ links, deleteLink }) {
                   height={48}
                   alt=""
                   className="rounded-full"
-                />
+                /> */}
+                <BlurImage src={`https://www.google.com/s2/favicons?domain=${
+                    data.url
+                  }&sz=${64}`}
+                  className="rounded-full"
+                  alt={(data.url).split("/")[2]}
+                  width={48}
+            height={48}/>
               </div>
               <div className="flex flex-col">
                 <div className="flex flex-row space-x-2 items-center">
