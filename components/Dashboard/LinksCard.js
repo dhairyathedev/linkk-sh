@@ -28,9 +28,7 @@ export default function LinksCard({ links, deleteLink }) {
                   alt=""
                   className="rounded-full"
                 /> */}
-                <BlurImage src={`https://www.google.com/s2/favicons?domain=${
-                    data.url
-                  }&sz=${64}`}
+                <BlurImage src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${data.url}&size=64`}
                   className="rounded-full"
                   alt={(data.url).split("/")[2]}
                   width={48}
