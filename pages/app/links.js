@@ -77,13 +77,30 @@ export default function LinksPage() {
         }
       });
   }
+  async function removeLinkExpiry(id) {
+    const confirmRemove = confirm(
+      "You are about to remove the link expiration, are you sure? \n P.S Link will not be deleted"
+    );
+    if (confirmRemove) {
+      const { data: res, error } = await supabase
+        .from("link")
+        .update({ expiresAt: null })
+        .match({ linkId: id });
+      
+      window.location.reload();
+    }
+  }
   return (
     <>
       <Toaster />
       <Dashboard>
         <Links>
           {links.length > 0 ? (
-            <LinksCard links={links} deleteLink={deleteLink} />
+            <LinksCard
+              links={links}
+              deleteLink={deleteLink}
+              removeLinkExpiry={removeLinkExpiry}
+            />
           ) : (
             <div className="flex justify-center items-center mt-48">
               <svg

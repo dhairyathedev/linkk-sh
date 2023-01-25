@@ -7,7 +7,7 @@ import { timeAgo } from "../../lib/date";
 import FormatInt from "../../lib/validations/format-num";
 import BlurImage from "../shared/blur-img";
 
-export default function LinksCard({ links, deleteLink }) {
+export default function LinksCard({ links, deleteLink, removeLinkExpiry }) {
   return (
     <div className="mt-4 max-w-screen-md mx-auto">
       <Toaster />
@@ -82,8 +82,10 @@ export default function LinksCard({ links, deleteLink }) {
                   </button>
                   {
                     data.expiresAt !== null ?
+                    <div className="tooltip" data-tip={`Link Expiring on ${new Date(data.expiresAt).toLocaleDateString()}`}>
                   <button
                     className="group rounded-full bg-gray-100 p-1.5 transition-all duration-75 hover:scale-105 hover:bg-blue-100 active:scale-95"
+                    onClick={() => removeLinkExpiry(data.linkId)}
                   >
                     <span className="sr-only">Expiry Date: </span>
                     <svg
@@ -102,6 +104,7 @@ export default function LinksCard({ links, deleteLink }) {
                       <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0m9 0l3 2m-3 -7v5"></path>
                     </svg>
                   </button>
+                  </div>
                   : ""
 }
                   <div>
